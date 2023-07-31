@@ -233,6 +233,7 @@ class CausalLoraKbitEngine(CausalEngine):
                 device_map=device_map,
                 quantization_config=double_quant_config,
                 trust_remote_code=trust_remote_code,
+                device_map='auto'
             )
 
             model = prepare_model_for_kbit_training(model)
