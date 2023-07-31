@@ -218,7 +218,7 @@ class CausalLoraKbitEngine(CausalEngine):
         load_4bit: Optional[bool] = True
     ):
         if model is None:
-            device_map = {"": int(os.environ.get("LOCAL_RANK") or 0)}
+            device_map = 'auto' #{"": int(os.environ.get("LOCAL_RANK") or 0)}
 
             double_quant_config = BitsAndBytesConfig(
                 load_in_4bit=True,
@@ -232,8 +232,7 @@ class CausalLoraKbitEngine(CausalEngine):
                 torch_dtype=DEFAULT_DTYPE,
                 device_map=device_map,
                 quantization_config=double_quant_config,
-                trust_remote_code=trust_remote_code,
-                device_map='auto'
+                trust_remote_code=trust_remote_code
             )
 
             model = prepare_model_for_kbit_training(model)
