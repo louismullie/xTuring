@@ -5,6 +5,7 @@ from typing import Any, List, Optional, Union
 import evaluate
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import BitsAndBytesConfig
 
 from xturing.config import DEFAULT_DEVICE, DEFAULT_DTYPE
 from xturing.config.read_config import (
@@ -217,14 +218,19 @@ class CausalLoraKbitEngine(CausalEngine):
     ):
         if model is None:
             device_map = {"": int(os.environ.get("LOCAL_RANK") or 0)}
+            double_quant_config = BitsAndBytesConfig(
+                load_in_4bit=True,
+                bnb_4bit_use_double_quant=True,
+                bnb_4bit_quant_type='nf4',
+                bnb_4bit_compute_dtype=bfloat16
+            )
             model = AutoModelForCausalLM.from_pretrained(
                 model_name,
                 torch_dtype=DEFAULT_DTYPE,
                 device_map=device_map,
-                load_in_4bit=True,
+                quantization_config=double_quant_config,
                 trust_remote_code=trust_remote_code,
             )
-
             model = prepare_model_for_kbit_training(model)
 
         if tokenizer is None:
