@@ -214,6 +214,7 @@ class CausalLoraKbitEngine(CausalEngine):
         tokenizer: Optional[Any] = None,
         target_modules: Optional[Union[List[str], str]] = None,
         trust_remote_code: Optional[bool] = False,
+        load_4bit: Optional[bool] = True
     ):
         if model is None:
             device_map = {"": int(os.environ.get("LOCAL_RANK") or 0)}
