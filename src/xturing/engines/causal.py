@@ -235,6 +235,8 @@ class CausalLoraKbitEngine(CausalEngine):
                 trust_remote_code=trust_remote_code
             )
 
+            model.config.pretraining_tp = 1
+
             model = prepare_model_for_kbit_training(model)
 
         if tokenizer is None:
