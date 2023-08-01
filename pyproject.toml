@@ -46,7 +46,7 @@ dependencies = [
     "transformers==4.31.0",
     "datasets",
     "evaluate",
-    "bitsandbytes==0.39.0",
+    "bitsandbytes==0.41.0",
     "sentencepiece",
     "deepspeed",
     "gradio",
@@ -58,7 +58,7 @@ dependencies = [
     "openai >= 0.27.0",
     "pydantic >= 1.10.0",
     "rouge-score >= 0.1.2",
-    "accelerate",
+    "accelerate==0.21.0",
     "wandb",
 ]
 
